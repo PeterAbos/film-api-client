@@ -10,7 +10,7 @@ class Router
 
         $parts = explode("/", $path);
 
-        $resource = $parts[0] ?: "counties";
+        $resource = $parts[0] ?: "actors";
         $action = $parts[1] ?? "index";
         $id = $parts[2] ?? null;
 

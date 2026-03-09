@@ -10,7 +10,7 @@ class IndexView
 
     public function render(): string
     {
-        $rows = array_map(fn($c) => $this->renderRow($c), $this->actors['entities']);
+        $rows = array_map(fn($c) => $this->renderRow($c), $this->actors);
         $rowsHtml = implode("", $rows);
 
         $content = <<<HTML
