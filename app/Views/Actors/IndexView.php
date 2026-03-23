@@ -10,6 +10,7 @@ class IndexView
 
     public function render(): string
     {
+        unset($this->actors['code']);
         $rows = array_map(fn($c) => $this->renderRow($c), $this->actors);
         $rowsHtml = implode("", $rows);
 
