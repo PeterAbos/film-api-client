@@ -52,4 +52,12 @@ class ActorsController
         $actor = $this->api->get("/actors/$id");
         return (new EditView($actor))->render();
     }
+
+    public function delete(?int $id): void
+    {
+        $this->api->delete("/actors/$id");
+
+        header("Location: /actors");
+        exit;
+    }
 }
