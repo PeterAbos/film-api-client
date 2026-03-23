@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Http\ApiRequest;
 use App\Views\Actors\CreateView;
+use App\Views\Actors\EditView;
 use App\Views\Actors\IndexView;
 
 class ActorsController
@@ -49,6 +50,6 @@ class ActorsController
         }
 
         $actor = $this->api->get("/actors/$id");
-        return $this->index();
+        return (new EditView($actor))->render();
     }
 }
