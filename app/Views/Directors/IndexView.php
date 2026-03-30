@@ -17,8 +17,6 @@ class IndexView
         $content = <<<HTML
         <h1>Rendezők</h1>
 
-        {$this->renderSearchBar()}
-
         <a href="/directors/create" class="btn btn-primary">Új rendező</a>
         <br><br>
 
@@ -63,17 +61,6 @@ class IndexView
                 <a href="/directors/delete/{$id}" class="btn btn-sm btn-danger" onclick="return confirm('Biztos törlöd?')">Törlés</a>
             </td>
         </tr>
-        HTML;
-    }
-
-    private function renderSearchBar(): string
-    {
-        return <<<HTML
-        <form method="get" action="/directors" class="search-bar">
-            <input type="search" name="needle" placeholder="Keresés..." class="search-input">
-            <button type="submit" class="btn btn-secondary">Keres</button>
-        </form>
-        <br>
         HTML;
     }
 }
