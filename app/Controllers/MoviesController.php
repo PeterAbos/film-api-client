@@ -1,0 +1,81 @@
+<?php
+
+namespace App\Controllers;
+
+use App\Http\ApiRequest;
+//use App\Views\Movies\CreateView;
+//use App\Views\Movies\EditView;
+use App\Views\Movies\IndexView;
+
+class MoviesController
+{
+    private ApiRequest $api;
+
+    public function __construct()
+    {
+        $this->api = new ApiRequest();
+    }
+
+    public function index(): string
+    {
+        $movies = $this->api->get("/movies");
+        unset($movies['code']);
+        $filled_movies = [];
+        foreach ($movies as $movie) {
+            $seged = [];
+            $seged['id'] = $movie['id'];
+            $seged['title'] = $movie['title'];
+            $seged['duration'] = $movie['duration'];
+            $studio_id = $movie['studio_id'];
+            $seged['studio'] = $this->api->get("/studio/$studio_id")['name'];
+            $director_id = $movie['director_id'];
+            $seged['director'] = $this->api->get("/directors/$director_id")['name'];
+            $category_id = $movie['category_id'];
+            $seged['category'] = $this->api->get("/category/$category_id")['name'];
+            $seged['release_year'] = $movie['release_year'];
+
+            $filled_movies[] = $seged;
+        }
+        return (new IndexView($filled_movies))->render();
+    }
+
+    /*
+    public function create(): string
+    {
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            $this->api->post("/actors", [
+                "name" => $_POST["name"],
+                "birth_date" => $_POST["birth_date"]
+            ]);
+
+            header("Location: /actors");
+            exit;
+        }
+
+        return (new CreateView())->render();
+    }
+
+    public function edit(?int $id): string
+    {
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            $this->api->put("/actors/$id", [
+                "name" => $_POST["name"],
+                "birth_date" => $_POST["birth_date"]
+            ]);
+
+            header("Location: /actors");
+            exit;
+        }
+
+        $actor = $this->api->get("/actors/$id");
+        return (new EditView($actor))->render();
+    }
+
+    public function delete(?int $id): void
+    {
+        $this->api->delete("/actors/$id");
+
+        header("Location: /actors");
+        exit;
+    }*/
+}
