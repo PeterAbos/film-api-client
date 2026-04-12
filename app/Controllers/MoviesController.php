@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Http\ApiRequest;
-//use App\Views\Movies\CreateView;
+use App\Views\Movies\CreateView;
 //use App\Views\Movies\EditView;
 use App\Views\Movies\IndexView;
 
@@ -39,22 +39,34 @@ class MoviesController
         return (new IndexView($filled_movies))->render();
     }
 
-    /*
+    
     public function create(): string
     {
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
-            $this->api->post("/actors", [
-                "name" => $_POST["name"],
-                "birth_date" => $_POST["birth_date"]
+            $this->api->post("/movies", [
+                "title" => $_POST["title"],
+                "duration" => $_POST["duration"],
+                "studio_id" => $_POST["studio_id"],
+                "director_id" => $_POST["director_id"],
+                "category_id" => $_POST["category_id"],
+                "release_year" => $_POST["release_year"]
             ]);
 
-            header("Location: /actors");
+            header("Location: /movies");
             exit;
         }
 
-        return (new CreateView())->render();
+        $studios = $this->api->get("/studio");
+        unset($studios["code"]);
+        $directors = $this->api->get("/directors");
+        unset($directors["code"]);
+        $categories = $this->api->get("/category");
+        unset($categories["code"]);
+
+        return (new CreateView($studios, $directors, $categories))->render();
     }
 
+    /*
     public function edit(?int $id): string
     {
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
