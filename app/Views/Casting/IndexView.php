@@ -50,7 +50,7 @@ class IndexView
         $id = $c["id"];
         $title = htmlspecialchars($c["title"]);
         $actor = htmlspecialchars($c["actor"]);
-        $character = htmlspecialchars($c["character"]);
+        $character = htmlspecialchars($c["character_name"]);
 
         return <<<HTML
         <tr>
