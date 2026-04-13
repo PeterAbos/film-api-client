@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\Http\ApiRequest;
 use App\Views\Movies\CreateView;
-//use App\Views\Movies\EditView;
+use App\Views\Movies\EditView;
 use App\Views\Movies\IndexView;
 
 class MoviesController
@@ -66,23 +66,33 @@ class MoviesController
         return (new CreateView($studios, $directors, $categories))->render();
     }
 
-    /*
     public function edit(?int $id): string
     {
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
-            $this->api->put("/actors/$id", [
-                "name" => $_POST["name"],
-                "birth_date" => $_POST["birth_date"]
+            $this->api->put("/movies/$id", [
+                "title" => $_POST["title"],
+                "duration" => $_POST["duration"],
+                "studio_id" => $_POST["studio_id"],
+                "director_id" => $_POST["director_id"],
+                "category_id" => $_POST["category_id"],
+                "release_year" => $_POST["release_year"]
             ]);
 
-            header("Location: /actors");
+            header("Location: /movies");
             exit;
         }
 
-        $actor = $this->api->get("/actors/$id");
-        return (new EditView($actor))->render();
+        $movie = $this->api->get("/movies/$id");
+        $studios = $this->api->get("/studio");
+        unset($studios['code']);
+        $directors = $this->api->get("/directors");
+        unset($directors['code']);
+        $categories = $this->api->get("/category");
+        unset($categories['code']);
+
+        return (new EditView($movie, $studios, $directors, $categories))->render();
     }
-    */
+
     public function delete(?int $id): void
     {
         $this->api->delete("/movies/$id");
