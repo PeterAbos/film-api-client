@@ -57,11 +57,11 @@ class MoviesController
         }
 
         $studios = $this->api->get("/studio");
-        unset($studios["code"]);
+        unset($studios['code']);
         $directors = $this->api->get("/directors");
-        unset($directors["code"]);
+        unset($directors['code']);
         $categories = $this->api->get("/category");
-        unset($categories["code"]);
+        unset($categories['code']);
 
         return (new CreateView($studios, $directors, $categories))->render();
     }
@@ -82,12 +82,12 @@ class MoviesController
         $actor = $this->api->get("/actors/$id");
         return (new EditView($actor))->render();
     }
-
+    */
     public function delete(?int $id): void
     {
-        $this->api->delete("/actors/$id");
+        $this->api->delete("/movies/$id");
 
-        header("Location: /actors");
+        header("Location: /movies");
         exit;
-    }*/
+    }
 }

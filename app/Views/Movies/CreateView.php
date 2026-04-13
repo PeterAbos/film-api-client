@@ -39,7 +39,7 @@ class CreateView
             {$this->chooseCategory()}
             <br>
 
-            <label for="date">Év</label>
+            <label for="release_year">Év</label>
             <input type="number" name="release_year" id="release_year" require>
 
             <br>
@@ -54,31 +54,28 @@ class CreateView
     }
 
     private function chooseStudio() {
-        $content = "<select id='studio_id'>";
+        if(count($this->studios) == 0) {
+            return "<p>NINCS</p>";
+        }
+        $content = "<select name='studio_id' id='studio_id'>";
         foreach ($this->studios as $studio) {
-            $id = $studio['id'];
-            $name = $studio['name'];
-            $content .= `<option value='$id'>$name</option>`;
+            $content .= "<option value='". $studio["id"] ."'>". $studio["name"] ."</option>";
         }
         $content .= "</select>";
         return $content;
     }
     private function chooseDirector() {
-        $content = "<select id='director_id'>";
+        $content = "<select name='director_id' id='director_id'>";
         foreach ($this->directors as $director) {
-            $id = $director['id'];
-            $name = $director['name'];
-            $content .= `<option value='$id'>$name</option>`;
+            $content .= "<option value='". $director["id"] ."'>". $director["name"] ."</option>";
         }
         $content .= "</select>";
         return $content;
     }
     private function chooseCategory() {
-        $content = "<select id='category_id'>";
+        $content = "<select name='category_id' id='category_id'>";
         foreach ($this->categories as $category) {
-            $id = $category['id'];
-            $name = $category['name'];
-            $content .= `<option value='$id'>$name</option>`;
+            $content .= "<option value='". $category["id"] ."'>". $category["name"] ."</option>";
         }
         $content .= "</select>";
         return $content;
